@@ -1,6 +1,7 @@
 //
-//  Mastering RxSwift
-//  Copyright (c) KxCoding <help@kxcoding.com>
+//  URLSessionConfiguration+Alamofire.swift
+//
+//  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,28 +22,25 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
-import RxSwift
+import Foundation
 
-let disposeBag = DisposeBag()
+extension URLSessionConfiguration: AlamofireExtended {}
+extension AlamofireExtension where ExtendedType: URLSessionConfiguration {
+    /// Alamofire's default configuration. Same as `URLSessionConfiguration.default` but adds Alamofire default
+    /// `Accept-Language`, `Accept-Encoding`, and `User-Agent` headers.
+    public static var `default`: URLSessionConfiguration {
+        let configuration = URLSessionConfiguration.default
+        configuration.headers = .default
 
-//Observable.just("Hello, RxSwift")
-//    .subscribe { print($0) }
-//    .disposed(by: disposeBag)
+        return configuration
+    }
 
-//var a = 1
-//var b = 2
-//a + b
-//a = 10
+    /// `.ephemeral` configuration with Alamofire's default `Accept-Language`, `Accept-Encoding`, and `User-Agent`
+    /// headers.
+    public static var ephemeral: URLSessionConfiguration {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.headers = .default
 
-let a = BehaviorSubject(value: 1)
-let b = BehaviorSubject(value: 2)
-
-Observable.combineLatest(a, b) { $0 + $1 }
-    .subscribe(onNext: {print($0)} )
-    .disposed(by: disposeBag)
-
-a.onNext(10)
-
-
-
+        return configuration
+    }
+}

@@ -1,6 +1,7 @@
 //
-//  Mastering RxSwift
-//  Copyright (c) KxCoding <help@kxcoding.com>
+//  DispatchQueue+Alamofire.swift
+//
+//  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,28 +22,16 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
-import RxSwift
+import Dispatch
+import Foundation
 
-let disposeBag = DisposeBag()
-
-//Observable.just("Hello, RxSwift")
-//    .subscribe { print($0) }
-//    .disposed(by: disposeBag)
-
-//var a = 1
-//var b = 2
-//a + b
-//a = 10
-
-let a = BehaviorSubject(value: 1)
-let b = BehaviorSubject(value: 2)
-
-Observable.combineLatest(a, b) { $0 + $1 }
-    .subscribe(onNext: {print($0)} )
-    .disposed(by: disposeBag)
-
-a.onNext(10)
-
-
-
+extension DispatchQueue {
+    /// Execute the provided closure after a `TimeInterval`.
+    ///
+    /// - Parameters:
+    ///   - delay:   `TimeInterval` to delay execution.
+    ///   - closure: Closure to execute.
+    func after(_ delay: TimeInterval, execute closure: @escaping () -> Void) {
+        asyncAfter(deadline: .now() + delay, execute: closure)
+    }
+}

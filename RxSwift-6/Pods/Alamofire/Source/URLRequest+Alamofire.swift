@@ -1,6 +1,7 @@
 //
-//  Mastering RxSwift
-//  Copyright (c) KxCoding <help@kxcoding.com>
+//  URLRequest+Alamofire.swift
+//
+//  Copyright (c) 2019 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,28 +22,18 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
-import RxSwift
+import Foundation
 
-let disposeBag = DisposeBag()
+extension URLRequest {
+    /// Returns the `httpMethod` as Alamofire's `HTTPMethod` type.
+    public var method: HTTPMethod? {
+        get { httpMethod.flatMap(HTTPMethod.init) }
+        set { httpMethod = newValue?.rawValue }
+    }
 
-//Observable.just("Hello, RxSwift")
-//    .subscribe { print($0) }
-//    .disposed(by: disposeBag)
-
-//var a = 1
-//var b = 2
-//a + b
-//a = 10
-
-let a = BehaviorSubject(value: 1)
-let b = BehaviorSubject(value: 2)
-
-Observable.combineLatest(a, b) { $0 + $1 }
-    .subscribe(onNext: {print($0)} )
-    .disposed(by: disposeBag)
-
-a.onNext(10)
-
-
-
+    public func validate() throws {
+        if method == .get, let bodyData = httpBody {
+            throw AFError.urlRequestValidationFailed(reason: .bodyDataInGETRequest(bodyData))
+        }
+    }
+}
