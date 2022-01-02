@@ -28,8 +28,24 @@ import RxSwift
 /*:
  # Disposables
  */
+Observable.from([1, 2, 3])
+    .subscribe(onNext: { elem in
+        print("Next", elem)
+    }, onError: { error in
+        print("Error", error)
+    }, onCompleted: {
+        print("Compeleted")
+    }, onDisposed: {
+        print("Disposed")
+    })
 
+var bag = DisposeBag()
 
+Observable.from([1, 2, 3])
+    .subscribe {
+        print($0)
+    }
+    .disposed(by: bag)
 
 
 

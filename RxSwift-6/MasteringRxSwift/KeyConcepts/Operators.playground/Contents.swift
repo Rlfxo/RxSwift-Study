@@ -32,8 +32,14 @@ import RxSwift
 let bag = DisposeBag()
 
 Observable.from([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    .take(5)
+    .filter { $0.isMultiple(of: 2) }
     .subscribe { print($0) }
     .disposed(by: bag)
+
+//public protocol ObservableType
+
+
 
 
 
