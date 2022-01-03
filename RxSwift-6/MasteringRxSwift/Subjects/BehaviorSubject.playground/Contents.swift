@@ -35,12 +35,24 @@ enum MyError: Error {
 }
 
 
+let p = PublishSubject<Int>()
+p.subscribe {print("PublishSubject >>", $0)}
+    .disposed(by: disposeBag)
 
 
+let b = BehaviorSubject<Int>(value: 0)
+b.subscribe {print("BehaviorSubject1 >>", $0)}
+    .disposed(by: disposeBag)
 
+b.onNext(1)
 
+b.subscribe {print("BehaviorSubject2 >>", $0)}
+    .disposed(by: disposeBag)
 
+b.onCompleted()
 
+b.subscribe {print("BehaviorSubject3 >>", $0)}
+    .disposed(by: disposeBag)
 
 
 
