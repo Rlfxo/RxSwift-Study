@@ -33,7 +33,9 @@ let apple = "🍏"
 let orange = "🍊"
 let kiwi = "🥝"
 
-
+Observable.of(apple, orange, kiwi)
+    .subscribe { element in print(element)}
+    .disposed(by: disposeBag)
 
 
 

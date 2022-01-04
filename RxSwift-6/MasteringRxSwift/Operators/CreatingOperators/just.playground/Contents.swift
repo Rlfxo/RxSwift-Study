@@ -31,5 +31,7 @@ import RxSwift
 let disposeBag = DisposeBag()
 let element = "😀"
 
-
+Observable.just(element)
+    .subscribe { event in print(event)}
+    .disposed(by: disposeBag)
 
