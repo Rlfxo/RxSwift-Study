@@ -28,7 +28,6 @@ import RxSwift
  # debounce
  */
 
-
 let disposeBag = DisposeBag()
 
 let buttonTap = Observable<String>.create { observer in

@@ -31,6 +31,15 @@ import RxSwift
 let disposeBag = DisposeBag()
 let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+Observable.just(1)
+    .single()
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+Observable.from(numbers)
+    .single{ $0 == 5 }
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
 
 
 
