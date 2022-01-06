@@ -39,7 +39,7 @@ let greenRectangle = "🟩"
 let blueRectangle = "🟦"
 
 Observable.from([redCircle, greenCircle, blueCircle])
-    .flatMap { circle -> Observable<String> in
+    .flatMapFirst { circle -> Observable<String> in
         switch circle {
         case redCircle:
             return Observable.repeatElement(redRectangle)

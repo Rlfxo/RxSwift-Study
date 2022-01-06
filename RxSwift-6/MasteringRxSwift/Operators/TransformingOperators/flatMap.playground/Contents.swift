@@ -38,3 +38,22 @@ let redRectangle = "🟥"
 let greenRectangle = "🟩"
 let blueRectangle = "🟦"
 
+Observable.from([redCircle, greenCircle, blueCircle])
+    .flatMap{circle -> Observable<String> in
+        switch circle {
+        case redCircle:
+            return Observable.repeatElement(redRectangle)
+                .take(3)
+        case greenCircle:
+            return Observable.repeatElement(greenRectangle)
+                .take(3)
+        case blueCircle:
+            return Observable.repeatElement(blueRectangle)
+                .take(3)
+        default:
+            return Observable.just("")
+        }
+    }
+    .subscribe{print($0)}
+    .disposed(by: disposeBag)
+

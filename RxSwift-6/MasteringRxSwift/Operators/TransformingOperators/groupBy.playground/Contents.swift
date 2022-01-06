@@ -29,10 +29,12 @@ import RxSwift
  */
 
 let disposeBag = DisposeBag()
-let words = ["Apple", "Banana", "Orange", "Book", "City", "Axe"]
 
-
-
+Observable.range(start: 1, count: 10)
+    .groupBy{$0.isMultiple(of: 2)}
+    .flatMap{$0.toArray()}
+    .subscribe{print($0)}
+    .disposed(by: disposeBag)
 
 
 
