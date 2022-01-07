@@ -37,6 +37,7 @@ enum MyError: Error {
 let trigger = PublishSubject<Void>()
 let data = PublishSubject<String>()
 
+data.sample(trigger)
 
 
 

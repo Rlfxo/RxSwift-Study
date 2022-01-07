@@ -44,8 +44,7 @@ o.scan(0, accumulator: +)
 
 print("== reduce")
 
-
-
-
-
+o.reduce(0, accumulator: +)
+    .subscribe{print($0)}
+    .disposed(by: bag)
 

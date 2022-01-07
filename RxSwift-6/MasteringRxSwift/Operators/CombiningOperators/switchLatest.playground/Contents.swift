@@ -37,6 +37,23 @@ enum MyError: Error {
 let a = PublishSubject<String>()
 let b = PublishSubject<String>()
 
+let source = PublishSubject<Observable<String>>()
+
+source
+    .switchLatest()
+    .subscribe{print($0)}
+    .disposed(by: bag)
+
+a.onNext("1")
+b.onNext("b")
+
+source.onNext(a) // a is 최신 Ob
+
+a.onNext("2")
+
+source.onNext(b)
+
+
 
 
 
