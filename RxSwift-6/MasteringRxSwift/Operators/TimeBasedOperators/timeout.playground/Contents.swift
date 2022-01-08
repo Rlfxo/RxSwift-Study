@@ -33,6 +33,10 @@ let bag = DisposeBag()
 
 let subject = PublishSubject<Int>()
 
+subject.timeout(.seconds(3), scheduler: MainScheduler.instance)
+    .subscribe{print($0)}
+    .disposed(by: bag)
+
 
 
 

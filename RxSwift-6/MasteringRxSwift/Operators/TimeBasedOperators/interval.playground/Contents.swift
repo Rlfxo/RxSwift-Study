@@ -28,8 +28,26 @@ import RxSwift
  # interval
  */
 
+let i = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
+
+let ob1 = i.subscribe{print("1>>\($0)")}
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+    ob1.dispose()
+}
+
+var ob2: Disposable?
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+    ob2 = i.subscribe{print("2 >> \($0)")}
+}
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+    ob2?.dispose()
+}
 
 
+                     
 
 
 
