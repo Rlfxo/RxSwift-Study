@@ -39,7 +39,14 @@ let a = PublishSubject<String>()
 let b = PublishSubject<String>()
 let c = PublishSubject<String>()
 
+a.amb(b)
+    .subscribe{print($0)}
+    .disposed(by: bag)
 
+a.onNext("A")
+b.onNext("B")
+
+b.onCompleted()
 
 
 
