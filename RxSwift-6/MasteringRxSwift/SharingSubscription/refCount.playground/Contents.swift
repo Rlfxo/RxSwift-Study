@@ -29,12 +29,9 @@ import RxSwift
  */
 
 let bag = DisposeBag()
-let source = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance).debug().publish()
+let source = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance).debug().publish().refCount()
 
-let observer1 = source
-    .subscribe { print("🔵", $0) }
-
-source.connect()
+let observer1 = source.subscribe { print("🔵", $0) }
 
 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
     observer1.dispose()

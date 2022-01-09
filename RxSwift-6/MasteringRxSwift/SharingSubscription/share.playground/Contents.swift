@@ -29,7 +29,7 @@ import RxSwift
  */
 
 let bag = DisposeBag()
-let source = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance).debug()
+let source = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance).debug().share()
 
 let observer1 = source
     .subscribe { print("🔵", $0) }
