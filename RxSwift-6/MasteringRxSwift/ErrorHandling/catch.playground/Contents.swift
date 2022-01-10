@@ -39,7 +39,11 @@ let subject = PublishSubject<Int>()
 let recovery = PublishSubject<Int>()
 
 subject
+    .catch { _ in recovery }
     .subscribe { print($0) }
     .disposed(by: bag)
 
+subject.onError(MyError.error)
+subject.onNext(1)
+recovery.onNext(1)
 
