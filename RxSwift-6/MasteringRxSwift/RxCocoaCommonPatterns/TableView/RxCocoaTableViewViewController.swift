@@ -41,12 +41,26 @@ class RxCocoaTableViewViewController: UIViewController {
     
     let bag = DisposeBag()
     
-    
+    let nameObservable = Observable.of(appleProducts.map { $0.name })
+    let productObservable = Observable.of(appleProducts)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        nameObservable.bind(to: listTableView.rx.items) {
+            tableView, row, element in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "standardCell")!
+            cell.textLabel?.text = element
+            return cell
+        }
+        .disposed(by: bag)
         
+        Observable.zip(listTableView.rx.modelSelected(Product.self),listTableView.rx.itemSelected)
+            .bind{[weak self] (product, indexPath) in
+                self?.listTableView.deselectRow(at: indexPath, animated: true)
+                print(product.name)
+            }
+            .disposed(by: bag)
     }
 }
 
