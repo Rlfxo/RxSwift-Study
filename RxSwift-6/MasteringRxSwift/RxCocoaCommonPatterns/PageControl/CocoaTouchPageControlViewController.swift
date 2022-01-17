@@ -21,7 +21,7 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import UIKit//view Did Load
 
 class CocoaTouchPageControlViewController: UIViewController {
 
